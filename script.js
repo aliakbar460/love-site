@@ -113,19 +113,36 @@ hero.animate(
     duration:1800,
     fill:"forwards"
 }
-);// MUSIC PLAYER
+);
+
+// MUSIC PLAYER
 
 const playBtn = document.getElementById("playMusic");
 
 const music = document.getElementById("loveSong");
 
-playBtn.addEventListener("click",function(){
+playBtn.addEventListener("click", function(){
+    
+    music.play().then(() => {
+        playBtn.innerHTML = "💙 Playing...";
+    }).catch((error) => {
+        console.error("Audio play failed:", error);
+        playBtn.innerHTML = "❌ Error playing audio";
+        alert("Unable to play audio. Please check your browser settings.");
+    });
 
-music.play();
+});
 
-playBtn.innerHTML="💙 Playing...";
+music.addEventListener("ended", function(){
+    playBtn.innerHTML = "▶ Play Music ❤️";
+});
 
-});const message = `
+music.addEventListener("error", function(){
+    console.error("Audio error:", music.error);
+    playBtn.innerHTML = "❌ Audio not found";
+});
+
+const message = `
 
 Dear Ali Akbar,
 
@@ -167,7 +184,9 @@ function typeLetter(){
 
 }
 
-typeLetter();// ===========================
+typeLetter();
+
+// ===========================
 // SCROLL ANIMATION
 // ===========================
 
@@ -187,7 +206,9 @@ entry.target.classList.add("show");
 
 });
 
-hiddenElements.forEach(el=>observer.observe(el));// =====================
+hiddenElements.forEach(el=>observer.observe(el));
+
+// =====================
 // LOVE QUOTES
 // =====================
 
@@ -235,7 +256,9 @@ function changeQuote(){
 
 changeQuote();
 
-setInterval(changeQuote,5000);// ==========================
+setInterval(changeQuote,5000);
+
+// ==========================
 // SPARKLING STARS
 // ==========================
 
@@ -255,6 +278,8 @@ for(let i=0;i<80;i++){
 
     stars.appendChild(star);
 
-}window.addEventListener("load", function () {
+}
+
+window.addEventListener("load", function () {
   document.getElementById("loader").style.display = "none";
 });
